@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\BrandRepository;
 use App\Repository\ToyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +26,18 @@ class ProductController extends AbstractController
         $toys = $toyRepository->findAll();
 
         return $this->render('product/toys.html.twig', [
+            'toys' => $toys,
+        ]);
+    }
+
+    #[Route('/brands', name: 'app_brands')]
+    public function brands(BrandRepository $brandRepository, ToyRepository $toyRepository): Response
+    {
+        $brands = $brandRepository->findAll();
+        $toys = $toyRepository->findAll();
+
+        return $this->render('product/brands.html.twig', [
+            'brands' => $brands,
             'toys' => $toys,
         ]);
     }
