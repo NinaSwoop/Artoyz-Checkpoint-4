@@ -18,4 +18,14 @@ class ProductController extends AbstractController
             'toys' => $toys,
         ]);
     }
+
+    #[Route('/toys', name: 'app_toys')]
+    public function toys(ToyRepository $toyRepository): Response
+    {
+        $toys = $toyRepository->findAll();
+
+        return $this->render('product/toys.html.twig', [
+            'toys' => $toys,
+        ]);
+    }
 }
