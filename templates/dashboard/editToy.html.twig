@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard!{% endblock %}
+
+{% block body %}
+
+    <div class="example-wrapper">
+        <h1>EDIT {{ toy.title }}</h1>
+        {{ form_start(toyEditForm) }}
+        {{ form_widget(toyEditForm) }}
+        <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+        {{ form_end(toyEditForm) }}
+    </div>
+
+{% endblock %}
