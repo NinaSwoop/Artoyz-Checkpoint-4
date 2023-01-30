@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Program;
+use App\Entity\Toy;
 use App\Repository\BrandRepository;
+use App\Repository\ProgramRepository;
 use App\Repository\ToyRepository;
+use App\Service\ProgramDuration\ProgramDuration;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,6 +43,15 @@ class ProductController extends AbstractController
         return $this->render('product/brands.html.twig', [
             'brands' => $brands,
             'toys' => $toys,
+        ]);
+    }
+
+    #[Route('/show/{id}', name: 'app_show')]
+    public function show(ToyRepository $toyRepository, Toy $toy): Response
+    {
+
+        return $this->render('product/show.html.twig', [
+            'toy' => $toy,
         ]);
     }
 }
