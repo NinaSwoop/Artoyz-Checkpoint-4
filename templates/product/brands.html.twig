@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProductController!{% endblock %}
+
+{% block body %}
+
+
+    <div class="example-wrapper">
+        <h1>BRANDS</h1>
+        {% for brand in brands %}
+            <img src="{{ brand.picture }}" alt="{{ brand.name }}">
+            <h2> Name : {{ brand.name }}</h2>
+            <p>City : {{ brand.city }}</p>
+            {% for toy in brand.toys %}
+                <p>Related product : {{ toy.title }}</p>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+{% endblock %}
