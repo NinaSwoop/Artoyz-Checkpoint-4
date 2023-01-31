@@ -5,9 +5,14 @@ namespace App\Entity;
 use App\Repository\BrandRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BrandRepository::class)]
+#[Vich\Uploadable]
 class Brand
 {
     #[ORM\Id]
@@ -29,6 +34,16 @@ class Brand
 
     #[ORM\OneToMany(mappedBy: 'brand', targetEntity: Toy::class)]
     private Collection $toys;
+
+    #[Vich\UploadableField(mapping: 'picture_file', fileNameProperty: 'picture')]
+    #[Assert\File(
+        maxSize: '1M',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+    )]
+    private ?File $pictureFile = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
 
     public function __construct()
     {
@@ -116,5 +131,20 @@ class Brand
         }
 
         return $this;
+    }
+
+    public function setPictureFile(File $image = null): Brand
+    {
+        $this->pictureFile = $image;
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
     }
 }
