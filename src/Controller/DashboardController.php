@@ -25,6 +25,27 @@ class DashboardController extends AbstractController
         ]);
     }
 
+    #[Route('/new-toy', name: 'app_toy_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, ToyRepository $toyRepository): Response
+    {
+
+        $toy = new Toy();
+        $toyNewForm = $this->createForm(ToyType::class, $toy);
+
+        $toyNewForm->handleRequest($request);
+        // Was the form submitted ?
+        if ($toyNewForm->isSubmitted() && $toyNewForm->isValid()) {
+
+            $toyRepository->save($toy, true);
+
+            return $this->redirectToRoute('app_dashboard');
+        }
+        return $this->render('dashboard/newToy.html.twig', [
+            'toyNewform' => $toyNewForm,
+            'toy' => $toy,
+        ]);
+    }
+
     #[Route('/{id}/edit', name: 'app_toy_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Toy $toy, ToyRepository $toyRepository): Response
     {

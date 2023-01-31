@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Brand;
 use App\Entity\Toy;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,8 +26,11 @@ class ToyType extends AbstractType
                 'allow_delete'  => true, // not mandatory, default is true
                 'download_uri' => true, // not mandatory, default is true
             ])
-//            ->add('brand')
-        ;
+            ->add('brand', EntityType::class, [
+                'class' => Brand::class,
+                'choice_label' => 'name',
+                'label' => 'Brand',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
