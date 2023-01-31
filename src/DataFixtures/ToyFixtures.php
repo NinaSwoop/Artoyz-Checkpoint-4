@@ -20,7 +20,7 @@ class ToyFixtures extends Fixture implements DependentFixtureInterface
             $toy->setTitle($faker->sentence(4));
             $toy->setSize($faker->numberBetween(5, 30));
             $toy->setNumbercopies($faker->numberBetween(200, 20000));
-            $toy->setDescription($faker->paragraphs(1, true));
+            $toy->setDescription($faker->sentence(4));
             $toy->setPrice($faker->numberBetween(30, 500));
             $toy->setPicture('https://cdn.shopify.com/s/files/1/0088/7557/3306/products/22_3in_Graffiti_King9th_ProductIMG_R34_750x750.jpg?v=1666621811');
             $toy->setLinktopurchase('https://superplastic.co/collections/janky-vinyl-designer-art-toys/products/king-janky-the-9th-graf-king');
