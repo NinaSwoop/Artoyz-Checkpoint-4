@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Brand;
 use App\Entity\Toy;
+use App\Form\BrandType;
 use App\Form\ToyType;
 use App\Repository\BrandRepository;
 use App\Repository\ToyRepository;
@@ -26,7 +28,7 @@ class DashboardController extends AbstractController
     }
 
     #[Route('/new-toy', name: 'app_toy_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ToyRepository $toyRepository): Response
+    public function newToy(Request $request, ToyRepository $toyRepository): Response
     {
 
         $toy = new Toy();
@@ -46,8 +48,8 @@ class DashboardController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_toy_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Toy $toy, ToyRepository $toyRepository): Response
+    #[Route('/{id}/edit-toy', name: 'app_toy_edit', methods: ['GET', 'POST'])]
+    public function editToy(Request $request, Toy $toy, ToyRepository $toyRepository): Response
     {
         $toyEditForm = $this->createForm(ToyType::class, $toy);
         $toyEditForm->handleRequest($request);
@@ -65,8 +67,8 @@ class DashboardController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_toy_delete', methods: ['POST'])]
-    public function delete(Request $request, Toy $toy, ToyRepository $toyRepository): Response
+    #[Route('/{id}/delete-toy', name: 'app_toy_delete', methods: ['POST'])]
+    public function deleteToy(Request $request, Toy $toy, ToyRepository $toyRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $toy->getId(), $request->request->get('_token'))) {
             $toyRepository->remove($toy, true);
@@ -74,4 +76,55 @@ class DashboardController extends AbstractController
 
         return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/new-brand', name: 'app_brand_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, BrandRepository $brandRepository): Response
+    {
+
+        $brand = new Brand();
+        $brandNewForm = $this->createForm(BrandType::class, $brand);
+
+        $brandNewForm->handleRequest($request);
+
+        if ($brandNewForm->isSubmitted() && $brandNewForm->isValid()) {
+
+            $brandRepository->save($brand, true);
+
+            return $this->redirectToRoute('app_dashboard');
+        }
+        return $this->render('dashboard/newBrand.html.twig', [
+            'brandNewForm' => $brandNewForm,
+            'brand' => $brand,
+        ]);
+    }
+
+    #[Route('/{id}/edit-brand', name: 'app_brand_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Brand $brand, BrandRepository $brandRepository): Response
+    {
+        $brandEditForm = $this->createForm(BrandType::class, $brand);
+        $brandEditForm->handleRequest($request);
+
+        if ($brandEditForm->isSubmitted() && $brandEditForm->isValid()) {
+
+            $brandRepository->save($brand, true);
+
+            return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('dashboard/editBrand.html.twig', [
+            'brand' => $brand,
+            'brandEditForm' => $brandEditForm,
+        ]);
+    }
+
+    #[Route('/{id}/delete-brand', name: 'app_brand_delete', methods: ['POST'])]
+    public function delete(Request $request, Brand $brand, BrandRepository $brandRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $brand->getId(), $request->request->get('_token'))) {
+            $brandRepository->remove($brand, true);
+        }
+
+        return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
+    }
+
 }

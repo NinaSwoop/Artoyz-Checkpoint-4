@@ -6,6 +6,10 @@ use App\Entity\Brand;
 use App\Entity\Toy;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichFileType;
@@ -15,12 +19,25 @@ class ToyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
-            ->add('size')
-            ->add('numbercopies')
-            ->add('price')
-            ->add('linktopurchase')
-            ->add('description')
+            ->add('title', TextType::class, [
+                'required' => true,
+            ])
+            ->add('size', NumberType::class, [
+                'required' => true,
+            ])
+            ->add('numbercopies', NumberType::class, [
+                'required' => true,
+                'label' => 'Number of copies'
+            ])
+            ->add('price',  NumberType::class, [
+                'required' => true,
+            ])
+            ->add('linktopurchase', UrlType::class, [
+                'label' => 'Link to purchase'
+            ])
+            ->add('description', TextareaType::class, [
+                'required' => true,
+            ])
             ->add('pictureFile', VichFileType::class, [
                 'required'      => false,
                 'allow_delete'  => true, // not mandatory, default is true

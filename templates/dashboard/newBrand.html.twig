@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard!{% endblock %}
+
+{% block body %}
+
+    <div class="example-wrapper">
+        <h1>ADD NEW BRAND</h1>
+        {{ form_start(brandNewForm) }}
+        {{ form_widget(brandNewForm) }}
+        <button class="btn btn-success">Save</button>
+        {{ form_end(brandNewForm) }}
+    </div>
+
+{% endblock %}
