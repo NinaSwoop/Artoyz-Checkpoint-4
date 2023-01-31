@@ -6,6 +6,7 @@ use App\Entity\Toy;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class ToyType extends AbstractType
 {
@@ -18,7 +19,11 @@ class ToyType extends AbstractType
             ->add('price')
             ->add('linktopurchase')
             ->add('description')
-            ->add('picture')
+            ->add('pictureFile', VichFileType::class, [
+                'required'      => false,
+                'allow_delete'  => true, // not mandatory, default is true
+                'download_uri' => true, // not mandatory, default is true
+            ])
 //            ->add('brand')
         ;
     }

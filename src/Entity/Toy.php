@@ -3,9 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\ToyRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ToyRepository::class)]
+#[Vich\Uploadable]
 class Toy
 {
     #[ORM\Id]
@@ -34,9 +39,19 @@ class Toy
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
 
+    #[Vich\UploadableField(mapping: 'picture_file', fileNameProperty: 'picture')]
+    #[Assert\File(
+        maxSize: '1M',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+    )]
+    private ?File $pictureFile = null;
+
     #[ORM\ManyToOne(inversedBy: 'toys')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Brand $brand = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
 
     public function getId(): ?int
     {
@@ -138,4 +153,20 @@ class Toy
 
         return $this;
     }
+
+    public function setPictureFile(File $image = null): Toy
+    {
+        $this->pictureFile = $image;
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
+    }
+
 }

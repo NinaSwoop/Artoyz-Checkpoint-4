@@ -21,7 +21,8 @@
         {% for toy in toys %}
             <tr>
                 <td>{{ toy.title }}</td>
-                <td><img src="{{ toy.picture }}" alt="{{ toy.title }}"></td>
+                <td><img src="{{ vich_uploader_asset(toy) }}" alt="{{ toy.title }}"><td>
+{#                <td><img src="{{ toy.picture }}" alt="{{ toy.title }}"></td>#}
                 <td><a href="{{ path('app_toy_edit', {'id': toy.id}) }}">Edit</a></td>
 
                 <td><form method="post" action="{{ path('app_toy_delete', {'id': toy.id}) }}"
