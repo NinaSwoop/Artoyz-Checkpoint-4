@@ -78,6 +78,8 @@ class ProductController extends AbstractController
 
         $userRepository->save($user, true);
 
-        return $this->redirectToRoute('app_toys');
+        return $this->json([
+            'isInFavorite' => $this->getUser()->isInFavorite($toy)
+        ]);
     }
 }
