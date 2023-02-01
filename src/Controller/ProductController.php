@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Repository\BrandRepository;
 use App\Repository\ToyRepository;
 use App\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -53,17 +54,6 @@ class ProductController extends AbstractController
             'toy' => $toy,
         ]);
     }
-
-//    #[Route('/toys/{id}/isfavorite', name: 'app_favorite')]
-//    public function addIsFavorite(ToyRepository $toyRepository, UserRepository $userRepository): Response
-//    {
-//        $toy = $toyRepository->findOneBy(['id']);
-//        $this->getUser()->addIsFavorite($toy);
-//
-//        $toyRepository->save($toy, true);
-//
-//        return $this->redirectToRoute('app_show');
-//    }
 
     #[Route('/toys/{id}/isfavorite', name: 'app_favorite')]
     public function addToFavorite(int $id, Toy $toy, UserRepository $userRepository): Response
