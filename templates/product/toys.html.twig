@@ -11,7 +11,7 @@
             <img src="{{ toy.picture }}" alt="{{ toy.title }}">
             <h2>{{ toy.title }}</h2>
             <p>{{ toy.price|format_currency('USD', {rounding_mode: 'floor'}) }}</p>
-            <a href="{{ path('app_favorite', {id: toy.id})}}">
+            <a id="isFavorite" class="isFavoriteButton" href="{{ path('app_favorite', {id: toy.id})}}">
                 <i class="bi {{ app.user.isInFavorite(toy) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
             </a>
             <a href="{{ path('app_show', {'id': toy.id}) }}">Show</a>
