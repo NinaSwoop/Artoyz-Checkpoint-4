@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -26,6 +28,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\ManyToMany(targetEntity: Toy::class, inversedBy: 'users')]
+    #[ORM\JoinTable(name:'isFavorite')]
+//    private Collection $toys;
+    private $isFavorite;
+
+    public function __construct()
+    {
+        $this->toys = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -96,4 +108,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    /**
+     * @return Collection<int, Toy>
+     */
+    public function getIsFavorite(): Collection
+    {
+        return $this->isFavorite;
+    }
+
+    public function addIsFavorite(Toy $toy): self
+    {
+        if (!$this->isFavorite->contains($toy)) {
+            $this->isFavorite->add($toy);
+        }
+
+        return $this;
+    }
+
+    public function removeIsFavorite(Toy $toy): self
+    {
+        $this->isFavorite->removeElement($toy);
+
+        return $this;
+    }
+
+    public function isInFavorite(Toy $toy): bool
+    {
+        if ($this->getIsFavorite()->contains($toy)) {
+            return true;
+        }
+        return false;
+    }
+
 }
