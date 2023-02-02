@@ -1,6 +1,18 @@
+$primary-color : #FFE2C1;
+$secondary-color : #C6BCFF;
+
 
 @import "~bootstrap/scss/bootstrap";
 
 body {
-    background-color: lightgray;
+    background-color: $primary-color;
 }
+
+.nav-link {
+    color : $primary-color;
+}
+
+.navbar-toggler {
+    color : $primary-color;
+}
+

@@ -72,4 +72,14 @@ class ProductController extends AbstractController
             'isInFavorite' => $this->getUser()->isInFavorite($toy)
         ]);
     }
+
+    #[Route('/favorites', name: 'app_favorites')]
+    public function fav(ToyRepository $toyRepository): Response
+    {
+        $toys = $toyRepository->findAll();
+
+        return $this->render('product/favorites.html.twig', [
+            'toys' => $toys,
+        ]);
+    }
 }

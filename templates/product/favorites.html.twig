@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Your fav's{% endblock %}
+
+{% block body %}
+
+
+    <div class="example-wrapper">
+        <h1>FAV</h1>
+        {% for toy in toys %}
+            <img src="{{ toy.picture }}" alt="{{ toy.title }}">
+            <h2>{{ toy.title }}</h2>
+            <p>{{ toy.price|format_currency('USD', {rounding_mode: 'floor'}) }}</p>
+            {%  if  is_granted ( 'IS_AUTHENTICATED_FULLY' )  %}
+                <a id="isFavorite" class="isFavoriteButton" href="{{ path('app_favorite', {id: toy.id})}}">
+                    <i class="bi {{ app.user.isInFavorite(toy) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+                </a>
+            {%  endif  %}
+            <a href="{{ path('app_show', {'id': toy.id}) }}">Show</a>
+        {% endfor %}
+    </div>
+
+{% endblock %}
