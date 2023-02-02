@@ -10,9 +10,10 @@
             <div class="row d-flex m-auto flex-wrap justify-content-center">
 
                 {% for toy in toys|slice(1, 4) %}
+
                     <div class="col text-center">
                         <div class="card shadow bg-body rounded m-auto mb-4" style="width: 18rem;">
-                            <img class ="picture-toy" src="{{ toy.picture }}" alt="{{ toy.title }}">
+                            <a href="{{ path('app_show', {id: toy.id})}}"><img class ="picture-toy card-img-top" src="{{ toy.picture }}" alt="{{ toy.title }}"></a>
                             <div class="card-body">
                                 {%  if  is_granted ( 'IS_AUTHENTICATED_FULLY' )  %}
                                     <a id="isFavorite" class="isFavoriteButton text-end" href="{{ path('app_favorite', {id: toy.id})}}">
@@ -22,11 +23,11 @@
                                 <h2 class="toy-title">{{ toy.title }}</h2>
                                 <p class ="toy-price">{{ toy.price|format_currency('USD', {rounding_mode: 'floor'}) }}</p>
                                 <div class="d-flex flex-column">
-                                    <a href="{{ path('app_show', {id: toy.id})}}" class="btn btn-primary">Read more</a>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 {% endfor %}
             </div>
         </section>
