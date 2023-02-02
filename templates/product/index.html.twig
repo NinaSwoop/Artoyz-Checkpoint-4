@@ -2,21 +2,33 @@
 
 {% block title %}JUST IN{% endblock %}
 
-{% block body %}
+    {% block body %}
+        <section class="container m-auto">
+            <div class="row">
+                <h1 class="handing-title p-4">JUST IN</h1>
+            </div>
+            <div class="row d-flex m-auto flex-wrap justify-content-center">
 
-<main class="container-fluid">
-    <h1>JUST IN</h1>
-    {% for toy in toys|slice(1, 4) %}
-        <img src="{{ toy.picture }}" alt="{{ toy.title }}">
-        <h2>{{ toy.title }}</h2>
-        <p>{{ toy.price|format_currency('USD', {rounding_mode: 'floor'}) }}</p>
-        {%  if  is_granted ( 'IS_AUTHENTICATED_FULLY' )  %}
-            <a id="isFavorite" class="isFavoriteButton" href="{{ path('app_favorite', {id: toy.id})}}">
-                <i class="bi {{ app.user.isInFavorite(toy) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
-            </a>
-        {%  endif  %}
-        <a href="{{ path('app_show', {'id': toy.id}) }}">Show</a>
-    {% endfor %}
-</main>
+                {% for toy in toys|slice(1, 4) %}
+                    <div class="col text-center">
+                        <div class="card shadow bg-body rounded m-auto mb-4" style="width: 18rem;">
+                            <img class ="picture-toy" src="{{ toy.picture }}" alt="{{ toy.title }}">
+                            <div class="card-body">
+                                {%  if  is_granted ( 'IS_AUTHENTICATED_FULLY' )  %}
+                                    <a id="isFavorite" class="isFavoriteButton text-end" href="{{ path('app_favorite', {id: toy.id})}}">
+                                        <i class="bi {{ app.user.isInFavorite(toy) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+                                    </a>
+                                {%  endif  %}
+                                <h2 class="toy-title">{{ toy.title }}</h2>
+                                <p class ="toy-price">{{ toy.price|format_currency('USD', {rounding_mode: 'floor'}) }}</p>
+                                <div class="d-flex flex-column">
+                                    <a href="{{ path('app_show', {id: toy.id})}}" class="btn btn-primary">Read more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
 
 {% endblock %}
