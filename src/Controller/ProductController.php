@@ -73,6 +73,7 @@ class ProductController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/favorites', name: 'app_favorites')]
     public function fav(ToyRepository $toyRepository): Response
     {
