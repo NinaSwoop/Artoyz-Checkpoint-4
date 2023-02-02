@@ -1,15 +1,18 @@
 {% extends 'base.html.twig' %}
+{% form_theme toyEditForm 'bootstrap_5_layout.html.twig' %}
 
-{% block title %}Dashboard!{% endblock %}
+{% block title %}Edit toys{% endblock %}
 
 {% block body %}
-
-    <div class="example-wrapper">
-        <h1>EDIT {{ toy.title }}</h1>
-        {{ form_start(toyEditForm) }}
-        {{ form_widget(toyEditForm) }}
-        <button class="btn btn-success">{{ button_label|default('Save') }}</button>
-        {{ form_end(toyEditForm) }}
-    </div>
-
+    <body class="dashboard-body">
+        <main class ="container m-auto">
+            <div class="row m-5">
+                <h1>EDIT {{ toy.title }}</h1>
+                {{ form_start(toyEditForm) }}
+                {{ form_widget(toyEditForm) }}
+                <button class="btn btn-dark">{{ button_label|default('Save') }}</button>
+                {{ form_end(toyEditForm) }}
+            </div>
+        </main>
+    </body>
 {% endblock %}

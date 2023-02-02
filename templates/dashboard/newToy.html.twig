@@ -1,15 +1,18 @@
 {% extends 'base.html.twig' %}
+{% form_theme toyNewform 'bootstrap_5_layout.html.twig' %}
 
-{% block title %}Dashboard!{% endblock %}
+{% block title %}New toy{% endblock %}
 
 {% block body %}
-
-    <div class="example-wrapper">
-        <h1>ADD NEW TOY</h1>
-        {{ form_start(toyNewform) }}
-        {{ form_widget(toyNewform) }}
-        <button class="btn btn-success">{{ button_label|default('Save') }}</button>
-        {{ form_end(toyNewform) }}
-    </div>
-
+    <body class="dashboard-body">
+        <main class ="container m-auto">
+            <div class="row m-5">
+                <h1>ADD NEW TOY</h1>
+                {{ form_start(toyNewform) }}
+                {{ form_widget(toyNewform) }}
+                <button class="btn btn-dark">{{ button_label|default('Save') }}</button>
+                {{ form_end(toyNewform) }}
+            </div>
+        </main>
+    </body>
 {% endblock %}
