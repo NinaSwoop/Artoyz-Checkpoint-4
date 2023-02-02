@@ -1,5 +1,6 @@
 $primary-color : #FFE2C1;
 $secondary-color : #C6BCFF;
+$black : #212529;
 
 
 @import "~bootstrap/scss/bootstrap";
@@ -16,3 +17,50 @@ body {
     color : $primary-color;
 }
 
+footer {
+    background-color: $black;
+}
+
+footer ul {
+    padding-left: 0;
+}
+
+.logo-network {
+    width : 52px;
+    height: 52px;
+    margin-bottom: 2rem;
+}
+
+footer p {
+    color: #FFE2C1;
+}
+
+.social-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.logo-robot-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: $primary-color;
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.logo-robot-footer {
+    width: 200px;
+    margin-top: 2rem;
+}
