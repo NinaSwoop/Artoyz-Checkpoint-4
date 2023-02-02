@@ -94,12 +94,26 @@ footer p {
 
 .toy-picture-show {
     width: 300px;
-    //margin: 32px;
-    //margin: auto;
 }
 
 .toy-show,
 .content-show {
     padding: 12px;
     margin: auto;
+}
+
+.connexionLabel {
+    color: $black;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.connexionInput {
+    background: rgba(0, 0, 0, 0.1);
+    border: solid 3px $black;
+    height: 45px;
+}
+
+.btn {
+    color: $primary-color;
 }
