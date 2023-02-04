@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% form_theme brandNewForm 'bootstrap_5_layout.html.twig' %}
+
+{% block title %}New brand{% endblock %}
+
+{% block body %}
+    <body class="dashboard-body">
+        <main class ="container m-auto">
+            <div class="row m-5">
+                <h1>ADD NEW BRAND</h1>
+                {{ form_start(brandNewForm) }}
+                {{ form_widget(brandNewForm) }}
+                <button class="btn btn-dark">Save</button>
+                {{ form_end(brandNewForm) }}
+            </div>
+        </main>
+    </body>
+{% endblock %}

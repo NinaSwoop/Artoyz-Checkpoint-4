@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProductController!{% endblock %}
+
+{% block body %}
+    
+    <main class="container m-auto">
+        <div class="row">
+            <h1 class="handing-title p-4">BRANDS</h1>
+        </div>
+
+        <div class="row d-flex m-auto flex-wrap justify-content-center">
+
+            {% for brand in brands %}
+                <div class="col text-center">
+                    <div class="card shadow bg-body rounded m-auto mb-4" style="width: 18rem;">
+                        <a><img class ="picture-toy card-img-top" src="{{ brand.picture }}" alt="{{ brand.name }}"></a>
+                        <div class="card-body">
+                            <h2 class="brand-name">{{ brand.name }}</h2>
+                            <p>{{ brand.city }}</p>
+                            <p>{{ brand.description }}</p>
+                            {% for toy in brand.toys %}
+                                <p>Related product : {{ toy.title }}</p>
+                            {% endfor %}
+                            <div class="d-flex flex-column">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </main>
+
+{% endblock %}

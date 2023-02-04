@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Toys{% endblock %}
+
+{% block body %}
+
+    <main class="container m-auto">
+        <div class="row">
+            <h1 class="handing-title p-4">TOYS</h1>
+        </div>
+
+        <div class="row d-flex m-auto flex-wrap justify-content-center">
+
+            {% for toy in toys%}
+
+                <div class="col text-center">
+                    <div class="card shadow bg-body rounded m-auto mb-4" style="width: 18rem;">
+                        <a href="{{ path('app_show', {id: toy.id})}}"><img class ="picture-toy card-img-top" src="{{ toy.picture }}" alt="{{ toy.title }}"></a>
+                        <div class="card-body">
+                            {%  if  is_granted ( 'IS_AUTHENTICATED_FULLY' )  %}
+                                <a id="isFavorite" class="isFavoriteButton text-end" href="{{ path('app_favorite', {id: toy.id})}}">
+                                    <i class="bi {{ app.user.isInFavorite(toy) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+                                </a>
+                            {%  endif  %}
+                            <h2 class="toy-title">{{ toy.title }}</h2>
+                            <p class ="toy-price">{{ toy.price|format_currency('USD', {rounding_mode: 'floor'}) }}</p>
+                            <div class="d-flex flex-column">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    </main>
+
+{% endblock %}
+
+
+
+

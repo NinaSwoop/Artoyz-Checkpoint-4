@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Show{% endblock %}
+
+{% block body %}
+
+    <main class = "container">
+        <div>
+                <h1>{{ toy.title }}</h1>
+        </div>
+
+        <div class = "d-flex flex-wrap align-items-center p-4">
+                <div class ="toy-show">
+                        <img src="{{ toy.picture }}" alt="{{ toy.title }}" class="toy-picture-show">
+                </div>
+
+                <div class = "content-show">
+                        <p>{{ toy.description }}</p>
+                        <p>{{ toy.price|format_currency('USD', {rounding_mode: 'floor'}) }}</p>
+                        <p>{{ toy.size }}-inch</p>
+                        <p>Limited to {{ toy.numbercopies|format_number(locale='US') }} made</p>
+                        <a href="{{ toy.linktopurchase }}">Link to purchase</a>
+                </div>
+        </div>
+    </main>
+
+{% endblock %}
