@@ -20,7 +20,7 @@
 						<a href="{{ path('app_show', {id: toy.id})}}"><img class="picture-toy card-img-top" src="{{ toy.picture }}" alt="{{ toy.title }}"></a>
 						<div class="card-body">
 							{%  if  is_granted ( 'IS_AUTHENTICATED_FULLY' )  %}
-								<a id="isFavorite-{{toy.id}}" name="isFavoriteName" class="isFavoriteButton text-end" href="{{ path('app_favorite', {id: toy.id})}}">
+								<a id="isFavorite-{{toy.id}}" name="isFavoriteName" class="isFavoriteButton text-end" href="{{ path('app_favorite', {id: toy.id})}}" aria-label="button to add or remove toy's favorite">
 									<i class="bi {{ app.user.isInFavorite(toy) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
 								</a>
 							{%  endif  %}
