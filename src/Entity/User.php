@@ -30,8 +30,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\ManyToMany(targetEntity: Toy::class, inversedBy: 'users')]
-    #[ORM\JoinTable(name:'isFavorite')]
-//    private Collection $toys;
+    #[ORM\JoinTable(name: 'isFavorite')]
+    //    private Collection $toys;
     private $isFavorite;
 
     public function __construct()
@@ -140,5 +140,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
         return false;
     }
-
 }

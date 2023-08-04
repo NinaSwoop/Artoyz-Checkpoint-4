@@ -56,7 +56,7 @@ class ProductController extends AbstractController
     }
 
     #[Route('/toys/{id}/isfavorite', name: 'app_favorite')]
-    public function addToFavorite(int $id, Toy $toy, UserRepository $userRepository): Response
+    public function addToFavorite(int $id, Toy $toy, UserRepository $userRepository, User $user): Response
     {
         /** @var \App\Entity\User */
         $user = $this->getUser();

@@ -20,7 +20,14 @@ for (let i = 0; i < isFavoriteButton.length; i++) {
     isFavoriteButton[i].addEventListener('click', addToFavorite);
 }
 
-document.getElementById('isFavorite').addEventListener('click', addToFavorite);
+let isFavorite = document.getElementsByName("isFavoriteName");
+// isFavorite.addEventListener('click', addToFavorite);
+
+console.log(isFavorite);
+
+for (let i = 0; i < isFavorite.length; i++) {
+    isFavorite[i].addEventListener('click', addToFavorite);
+}
 
 function addToFavorite(event) {
     event.preventDefault();
