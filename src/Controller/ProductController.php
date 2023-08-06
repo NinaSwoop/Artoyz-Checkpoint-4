@@ -55,16 +55,16 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/toys/{id}/isfavorite', name: 'app_favorite')]
+    #[Route('/toys/{id}/isfavorite', name: 'app_favorite', methods: ['POST'])]
     public function addToFavorite(int $id, Toy $toy, UserRepository $userRepository, ToyRepository $toyRepository): Response
     {
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
+
         // if (!$user) {
         //     throw new AccessDeniedException('You must be logged in to perform this action.');
         // }
 
-        $toys = $toyRepository->find($id);
         if (!$toy) {
             throw $this->createNotFoundException('The toy with ID ' . $id . ' does not exist.');
         }
@@ -77,8 +77,11 @@ class ProductController extends AbstractController
 
         $userRepository->save($user, true);
 
+        // Refresh the toy from the database to get the updated state
+        $toy = $toyRepository->findOneBy(['id' => $id]);
+
         return $this->json([
-            'isInFavorite' => $user->isInFavorite($toys)
+            'isInFavorite' => $user->isInFavorite($toy)
         ]);
     }
 

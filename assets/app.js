@@ -14,42 +14,45 @@ import './bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 
-let isFavoriteButton = document.getElementsByClassName('isFavoriteButton');
+let isFavoriteButton = document.getElementsByClassName('isfavoritebutton');
 
 for (let i = 0; i < isFavoriteButton.length; i++) {
-    isFavoriteButton[i].addEventListener('click', addToFavorite);
+    isFavoriteButton[i].addEventListener('click', function (event) {
+        const toyId = event.currentTarget.getAttribute('data-toy-id');
+        addToFavorite(event, toyId);
+    });
 }
+    
 
-let isFavorite = document.getElementsByName("isFavoriteName");
-// isFavorite.addEventListener('click', addToFavorite);
-
-console.log(isFavorite);
-
-for (let i = 0; i < isFavorite.length; i++) {
-    isFavorite[i].addEventListener('click', addToFavorite);
-}
-
-function addToFavorite(event) {
+function addToFavorite(event, toyId) {
     event.preventDefault();
     const favoriteLink = event.currentTarget;
-    const link = favoriteLink.href;
+    const favoriteIcon = favoriteLink.firstElementChild;
+    const favoriteTextButton = favoriteLink.lastElementChild;
+    const url = `/toys/${toyId}/isfavorite`;
 
-    try {
-        fetch(link)
-            // Extract the JSON from the response
-            .then(res => res.json())
-            // Then update the icon
-            .then(data => {
-                const favoriteIcon = favoriteLink.firstElementChild;
-                if (data.isInFavorite) {
-                    favoriteIcon.classList.remove("bi-heart"); // Remove the .bi-heart (empty heart) from classes in <i> element
-                    favoriteIcon.classList.add("bi-heart-fill"); // Add the .bi-heart-fill (full heart) from classes in <i> element
-                } else {
-                    favoriteIcon.classList.remove("bi-heart-fill"); // Remove the .bi-heart-fill (full heart) from classes in <i> element
-                    favoriteIcon.classList.add("bi-heart"); // Add the .bi-heart (empty heart) from classes in <i> element
-                }
-            });
-    } catch (err) {
-        console.error(err);
-    }
+
+    fetch(url, {
+        method: 'POST',
+        credentials: 'same-origin',
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.isInFavorite) {
+        console.log(data);
+            console.log(data.isInFavorite);
+            favoriteLink.setAttribute("aria-pressed", 'true');
+            favoriteIcon.classList.remove("bi-balloon-heart");
+            favoriteIcon.classList.add("bi-balloon-heart-fill");
+            favoriteTextButton.textContent = "Remove to favorite";
+        } else {
+            favoriteLink.setAttribute("aria-pressed", 'false');
+            favoriteIcon.classList.remove("bi-balloon-heart-fill");
+            favoriteIcon.classList.add("bi-balloon-heart");
+            favoriteTextButton.textContent = "Add to favorite";
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }

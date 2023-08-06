@@ -21,9 +21,10 @@
 							<a href="{{ path('app_show', {id: toy.id})}}"><img class="picture-toy card-img-top" src="{{ toy.picture }}" alt="{{ toy.title }}"></a>
 							<div class="card-body">
 								{%  if  is_granted ( 'IS_AUTHENTICATED_FULLY' )  %}
-									<a id="isFavorite-{{toy.id}}" name="isFavoriteName" data-favorite="isFavorite" class="isfavoritebutton text-end" href=" {{ path('app_favorite', {id: toy.id} )}}" aria-label="button to add or remove toy's favorite">
-										<i class="bi {{ app.user.isInFavorite(toy) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
-									</a>
+									<button id="isFavorite-{{toy.id}}" class="isfavoritebutton" data-toy-id="{{ toy.id }}" aria-label="button to add or remove toy's favorite" aria-pressed="{{ app.user.isInFavorite(toy) ? 'true' : 'false' }}">
+										<i class="bi {{ app.user.isInFavorite(toy) ? " bi-balloon-heart-fill" : " bi-balloon-heart" }}"></i>
+										<p class="buttonText">{{ app.user.isInFavorite(toy) ? 'Remove to favorite' : 'Add to favorite' }}</p>
+									</button>
 								{%  endif  %}
 								<h2 class="toy-title">{{ toy.title }}</h2>
 								<p class="toy-price">{{ toy.price|format_currency('USD', {rounding_mode: 'floor'}) }}</p>
