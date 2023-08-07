@@ -17,7 +17,7 @@
 
 				<div class="col text-center">
 					<div class="card shadow bg-body rounded m-auto mb-4" style="width: 18rem;">
-						<a href="{{ path('app_show', {id: toy.id})}}"><img class="picture-toy card-img-top" src="{{ toy.picture }}" alt="{{ toy.title }}"></a>
+						<a href="{{ path('app_show', {id: toy.id})}}"><img class="picture-toy card-img-top" src="{{ vich_uploader_asset(toy) }}" alt="{{ toy.title }}"></a>
 						<div class="card-body">
 							{%  if  is_granted ( 'IS_AUTHENTICATED_FULLY' )  %}
 								<button id="isFavorite-{{toy.id}}" class="isfavoritebutton" data-toy-id="{{ toy.id }}" aria-label="button to add or remove toy's favorite" aria-pressed="{{ app.user.isInFavorite(toy) ? 'true' : 'false' }}">
