@@ -8,7 +8,7 @@ use App\Form\BrandType;
 use App\Form\ToyType;
 use App\Repository\BrandRepository;
 use App\Repository\ToyRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -134,5 +134,4 @@ class DashboardController extends AbstractController
 
         return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
     }
-
 }

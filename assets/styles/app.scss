@@ -2,6 +2,7 @@ $primary-color : #FFE2C1;
 $secondary-color : #C6BCFF;
 $black : #212529;
 $white : #FFFFFF;
+$purple : #C6BCFF;
 
 
 @import "~bootstrap/scss/bootstrap";
@@ -20,6 +21,11 @@ body {
 .logo-navbar {
     margin: auto;
     max-width: 50vw;
+}
+
+.card:hover {
+    cursor: pointer;
+    transform: scale(1.06);
 }
 
 footer {
@@ -88,6 +94,7 @@ a:hover {
 button {
     background-color: $white;
     border: 1px solid $black;
+    border-style: none;
 }
 
 .buttonText {
@@ -136,14 +143,22 @@ button {
 }
 
 .dashboard-body {
-    background-color: #C6BCFF;
+    background-color: $purple;
 }
 
 #navbarText {
-    font-size: 40px;
+    font-size: 20px;
     color: $primary-color;
 }
 
 .nav-link {
     color: $primary-color;
+}
+
+.nav-link:hover {
+    color: $purple;
+}
+
+.account {
+    color: $purple;
 }
